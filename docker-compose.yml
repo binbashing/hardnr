@@ -1,0 +1,44 @@
+version: '2.3'
+
+services:
+
+  nginx:
+    image: owasp/modsecurity-crs:nginx-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+    volumes:
+      - ./logs/access.log:/var/log/nginx/access.log
+      - ./logs/error.log:/var/log/nginx/error.log
+    environment:
+      - BACKEND="http://172.24.1.10:4040"
+      - PROXY=1
+  # certbot:
+  #   image: certbot/certbot
+
+  fail2ban:
+    # build: fail2ban/
+    image: crazymax/fail2ban
+    restart: always
+    volumes:
+      - ./logs/access.log:/var/log/nginx/access.log
+      - ./logs/error.log:/var/log/nginx/error.log
+      - ./logs/fail2ban.log:/var/log/fail2ban.log
+
+      # - ./fail2ban/jail.conf:/etc/fail2ban/jail.conf
+      # - ./fail2ban/jail.conf:/etc/fail2ban/jail.local
+      # - ./fail2ban/filter.d/:/etc/fail2ban/filter.d/
+      
+      - ./fail2ban/filter.d:/data/filter.d
+      - ./fail2ban/jail.d:/data/jail.d
+      - ./fail2ban/jail.conf:/etc/fail2ban/jail.conf
+    # environment:
+      - TZ=America/New_York
+      - F2B_LOG_TARGET=STDOUT
+      - F2B_LOG_LEVEL=DEBUG
+      - F2B_DB_PURGE_AGE=1d
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    
