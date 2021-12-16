@@ -12,7 +12,7 @@ services:
       - ./logs/access.log:/var/log/nginx/access.log
       - ./logs/error.log:/var/log/nginx/error.log
     environment:
-      - BACKEND="http://172.24.1.10:4040"
+      - BACKEND="https://media.mahoneys.app"
       - PROXY=1
   # certbot:
   #   image: certbot/certbot
