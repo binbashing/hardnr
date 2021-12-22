@@ -18,21 +18,21 @@ services:
   #   image: certbot/certbot
 
   fail2ban:
-    # build: fail2ban/
-    image: crazymax/fail2ban
+    build: fail2ban/
+    # image: crazymax/fail2ban
     restart: always
     volumes:
       - ./logs/access.log:/var/log/nginx/access.log
       - ./logs/error.log:/var/log/nginx/error.log
       - ./logs/fail2ban.log:/var/log/fail2ban.log
 
-      # - ./fail2ban/jail.conf:/etc/fail2ban/jail.conf
-      # - ./fail2ban/jail.conf:/etc/fail2ban/jail.local
-      # - ./fail2ban/filter.d/:/etc/fail2ban/filter.d/
-      
-      - ./fail2ban/filter.d:/data/filter.d
-      - ./fail2ban/jail.d:/data/jail.d
       - ./fail2ban/jail.conf:/etc/fail2ban/jail.conf
+      - ./fail2ban/jail.conf:/etc/fail2ban/jail.local
+      - ./fail2ban/filter.d/:/etc/fail2ban/filter.d/
+      
+      # - ./fail2ban/filter.d:/data/filter.d
+      # - ./fail2ban/jail.d:/data/jail.d
+      # - ./fail2ban/jail.conf:/etc/fail2ban/jail.conf
     # environment:
       - TZ=America/New_York
       - F2B_LOG_TARGET=STDOUT

@@ -1,1 +1,19 @@
 2021-12-16 04:11:25,071 fail2ban.actions        [1]: NOTICE  [nginx-dos] Unban 192.168.80.1
+2021-12-16 04:52:19,206 fail2ban.server         [1]: INFO    Shutdown in progress...
+2021-12-16 04:52:19,207 fail2ban.observer       [1]: INFO    Observer stop ... try to end queue 5 seconds
+2021-12-16 04:52:19,227 fail2ban.observer       [1]: INFO    Observer stopped, 0 events remaining.
+2021-12-16 04:52:19,268 fail2ban.server         [1]: INFO    Stopping all jails
+2021-12-16 04:52:19,269 fail2ban.filter         [1]: INFO    Removed logfile: '/var/log/nginx/error.log'
+2021-12-16 04:52:19,270 fail2ban.filter         [1]: INFO    Removed logfile: '/var/log/nginx/error.log'
+2021-12-16 04:52:19,270 fail2ban.filter         [1]: INFO    Removed logfile: '/var/log/nginx/access.log'
+2021-12-16 04:52:19,270 fail2ban.filter         [1]: INFO    Removed logfile: '/var/log/nginx/access.log'
+2021-12-16 04:52:19,482 fail2ban.actions        [1]: NOTICE  [nginx-dos] Flush ticket(s) with iptables-multiport
+2021-12-16 04:52:19,593 fail2ban.actions        [1]: NOTICE  [nginx-auth] Flush ticket(s) with iptables-multiport-NoAuthFailures
+2021-12-16 04:52:19,602 fail2ban.actions        [1]: NOTICE  [nginx-req-limit] Flush ticket(s) with iptables-multiport-ReqLimit
+2021-12-16 04:52:19,602 fail2ban.actions        [1]: NOTICE  [nginx-proxy] Flush ticket(s) with iptables-multiport-NoProxy
+2021-12-16 04:52:19,603 fail2ban.jail           [1]: INFO    Jail 'nginx-req-limit' stopped
+2021-12-16 04:52:19,604 fail2ban.jail           [1]: INFO    Jail 'nginx-auth' stopped
+2021-12-16 04:52:19,631 fail2ban.jail           [1]: INFO    Jail 'nginx-proxy' stopped
+2021-12-16 04:52:19,716 fail2ban.jail           [1]: INFO    Jail 'nginx-dos' stopped
+2021-12-16 04:52:19,718 fail2ban.database       [1]: INFO    Connection to database closed.
+2021-12-16 04:52:19,719 fail2ban.server         [1]: INFO    Exiting Fail2ban
