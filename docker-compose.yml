@@ -1,12 +1,12 @@
-version: '2.3'
+version: '3'
 
 services:
 
   nginx:
     image: owasp/modsecurity-crs:nginx-alpine
-    ports:
-      - "80:80"
-      - "443:443"
+#    ports:
+#      - "80:80"
+#      - "443:443"
     restart: always
     volumes:
       - ./logs/access.log:/var/log/nginx/access.log
@@ -14,6 +14,8 @@ services:
     environment:
       - BACKEND="https://media.mahoneys.app"
       - PROXY=1
+    network_mode: host
+
   # certbot:
   #   image: certbot/certbot
 
@@ -33,12 +35,12 @@ services:
       # - ./fail2ban/filter.d:/data/filter.d
       # - ./fail2ban/jail.d:/data/jail.d
       # - ./fail2ban/jail.conf:/etc/fail2ban/jail.conf
-    # environment:
+    environment:
       - TZ=America/New_York
       - F2B_LOG_TARGET=STDOUT
       - F2B_LOG_LEVEL=DEBUG
       - F2B_DB_PURGE_AGE=1d
     cap_add:
       - NET_ADMIN
-      - NET_RAW
-    
+      - NET_RAW    
+    network_mode: host
