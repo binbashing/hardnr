@@ -8,17 +8,28 @@ services:
     volumes:
       - ./logs/access.log:/var/log/nginx/access.log
       - ./logs/error.log:/var/log/nginx/error.log
+      - ./certbot/certs/:/certs/
     environment:
       - BACKEND="https://141.158.63.251"
       - PROXY=1
+      - PROXY_SSL_CERT="/certs/fullchain.pem"
+      - PROXY_SSL_CERT_KEY="/certs/privkey.pem"
     network_mode: host
 
-  # certbot:
-  #   image: certbot/certbot
+  certbot:
+    image: certbot/dns-digitalocean
+    restart: on-failure
+    command: certonly -v --dns-digitalocean --dns-digitalocean-credentials /root/certbot-creds.ini --agree-tos --email ${EMAIL} -n -d *.${DOMAIN} --deploy-hook="/certs/copy-certs.sh"
+    volumes:
+      - ./certbot/certs/:/certs/
+      - ./certbot/entrypoint.sh:/entrypoint.sh
+    env_file:
+      - certbot/certbot.env
+    entrypoint: /entrypoint.sh
 
+      
   fail2ban:
     build: fail2ban/
-    # image: crazymax/fail2ban
     restart: always
     volumes:
       - ./logs/access.log:/var/log/nginx/access.log
