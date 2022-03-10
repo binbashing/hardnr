@@ -3,7 +3,7 @@ version: '3'
 services:
 
   nginx:
-    image: owasp/modsecurity-crs:nginx-alpine
+    build: nginx/
     restart: always
     volumes:
       - ./logs/access.log:/var/log/nginx/access.log
@@ -15,7 +15,10 @@ services:
       - PROXY_SSL_CERT="/certs/fullchain.pem"
       - PROXY_SSL_CERT_KEY="/certs/privkey.pem"
     network_mode: host
-
+    depends_on:
+      certbot:
+          condition: service_completed_successfully
+          
   certbot:
     image: certbot/dns-digitalocean
     restart: on-failure
@@ -27,7 +30,6 @@ services:
       - certbot/certbot.env
     entrypoint: /entrypoint.sh
 
-      
   fail2ban:
     build: fail2ban/
     restart: always
